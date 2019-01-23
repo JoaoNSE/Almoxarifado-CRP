@@ -1,0 +1,95 @@
+-- Database: "EstoqueCrp"
+
+-- DROP DATABASE "EstoqueCrp";
+
+CREATE DATABASE "EstoqueCrp"
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'pt_BR.UTF-8'
+       LC_CTYPE = 'pt_BR.UTF-8'
+       CONNECTION LIMIT = -1;
+
+-- Table: produto
+
+-- DROP TABLE produto;
+
+CREATE TABLE produto
+(
+  id serial NOT NULL,
+  nome character varying(50) NOT NULL,
+  un character varying(10) NOT NULL,
+  CONSTRAINT produto_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE produto
+  OWNER TO postgres;
+  
+INSERT INTO produto(nome, un) VALUES ('Perna de Cobra', 'UN');
+INSERT INTO produto(nome, un) VALUES ('Rabo de Galinha', 'UN');
+INSERT INTO produto(nome, un) VALUES ('Asa de Canguru', 'UN');
+INSERT INTO produto(nome, un) VALUES ('Dente de Ganso', 'UN');
+INSERT INTO produto(nome, un) VALUES ('Pelo de Grifo', 'KG');
+INSERT INTO produto(nome, un) VALUES ('Braço de Tubarão', 'UN');
+
+-- Table: usuario
+
+-- DROP TABLE usuario;
+
+CREATE TABLE usuario
+(
+  id serial NOT NULL,
+  nome character varying(20) NOT NULL,
+  senha character varying(60) NOT NULL,
+  CONSTRAINT usuario_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE usuario
+  OWNER TO postgres;
+
+  -- Table: movimentacao
+
+-- DROP TABLE movimentacao;
+
+CREATE TABLE movimentacao
+(
+  id serial NOT NULL,
+  data date NOT NULL,
+  obs character varying(100) NOT NULL,
+  tipo character(1) NOT NULL,
+  CONSTRAINT movimentacao_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE movimentacao
+  OWNER TO postgres;
+  
+  -- Table: item
+
+-- DROP TABLE item;
+
+CREATE TABLE item
+(
+  id serial NOT NULL,
+  qtd integer NOT NULL,
+  validade date NOT NULL,
+  movimentacao_id integer,
+  produto_id integer NOT NULL,
+  CONSTRAINT item_pkey PRIMARY KEY (id),
+  CONSTRAINT fkoya2x5ip1q2t3s0936vgjiyx9 FOREIGN KEY (produto_id)
+      REFERENCES produto (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fkrxy5ymeg7scmyhe3k5x65fxnr FOREIGN KEY (movimentacao_id)
+      REFERENCES movimentacao (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE item
+  OWNER TO postgres;

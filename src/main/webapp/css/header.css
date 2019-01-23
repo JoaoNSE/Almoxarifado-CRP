@@ -1,0 +1,44 @@
+.navbar-custom {
+	color: #FFFFFF;
+	background-color: #7F472E;
+	margin-bottom: 50px;
+	
+}
+
+.navbar-custom .navbar-nav > li > a {
+	color: #FFFFFF;
+}
+
+.navbar-custom .navbar-nav > li > a:hover {
+	color: #7F472E;
+}
+
+.navbar-custom .navbar-nav .badge {
+	background-color: #ff3d3d;
+}
+
+.navbar-footer {
+	color: #FFFFFF;
+	background-color: #7F472E;
+}
+
+.text-center-footer {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.session-title {
+	font-size: 30px;
+}
+
+.panel-custom {
+	border-color: #7F472E;
+}
+
+.panel-custom .panel-heading {
+	background-color: #7F472E;
+	color: #FFFFFF;
+}
+
+
+
