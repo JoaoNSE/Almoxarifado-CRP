@@ -38,15 +38,12 @@ public class ItemController {
 		
 		ArrayList<EstoqueItem> itens = new ArrayList<EstoqueItem>();
 		for (int i = 0; i < temp.size(); i++) {
-			//for(int j = 0; j < temp.get(i).length; j++) {
-//				System.out.println(temp.get(i)[j]);
-				EstoqueItem tempi = new EstoqueItem();
-				tempi.setProduto(produtoRepo.findOne((Integer)temp.get(i)[0]));
-				
-				tempi.setValidade(Instant.ofEpochMilli(((Date) temp.get(i)[1]).getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
-				tempi.setQtd(new Integer( ( (BigInteger)temp.get(i)[2]).intValue() ));
-				itens.add(tempi);
-			//}
+			EstoqueItem tempi = new EstoqueItem();
+			tempi.setProduto(produtoRepo.findOne((Integer)temp.get(i)[0]));
+			
+			tempi.setValidade(Instant.ofEpochMilli(((Date) temp.get(i)[1]).getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
+			tempi.setQtd(Integer.valueOf(((BigInteger)temp.get(i)[2]).intValue()));
+			itens.add(tempi);
 		}
 		model.addAttribute("itens", itens);
 		
@@ -61,14 +58,11 @@ public class ItemController {
 		
 		ArrayList<EstoqueItem> itens = new ArrayList<EstoqueItem>();
 		for (int i = 0; i < temp.size(); i++) {
-			//for(int j = 0; j < temp.get(i).length; j++) {
-//				System.out.println(temp.get(i)[j]);
-				EstoqueItem tempi = new EstoqueItem();
-				tempi.setProduto(produtoRepo.findOne((Integer)temp.get(i)[0]));
-				
-				tempi.setQtd(new Integer( ( (BigInteger)temp.get(i)[1]).intValue() ));
-				itens.add(tempi);
-			//}
+			EstoqueItem tempi = new EstoqueItem();
+			tempi.setProduto(produtoRepo.findOne((Integer)temp.get(i)[0]));
+			
+			tempi.setQtd(Integer.valueOf(((BigInteger)temp.get(i)[1]).intValue()));
+			itens.add(tempi);
 		}
 		model.addAttribute("itens", itens);
 		
@@ -83,15 +77,12 @@ public class ItemController {
 		
 		ArrayList<EstoqueItem> itens = new ArrayList<EstoqueItem>();
 		for (int i = 0; i < temp.size(); i++) {
-			//for(int j = 0; j < temp.get(i).length; j++) {
-//				System.out.println(temp.get(i)[j]);
-				EstoqueItem tempi = new EstoqueItem();
-				tempi.setProduto(produtoRepo.findOne((Integer)temp.get(i)[0]));
-				
-				tempi.setValidade(Instant.ofEpochMilli(((Date) temp.get(i)[1]).getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
-				tempi.setQtd(new Integer( ( (BigDecimal)temp.get(i)[2]).intValue() ));
-				itens.add(tempi);
-			//}
+			EstoqueItem tempi = new EstoqueItem();
+			tempi.setProduto(produtoRepo.findOne((Integer)temp.get(i)[0]));
+			
+			tempi.setValidade(Instant.ofEpochMilli(((Date) temp.get(i)[1]).getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
+			tempi.setQtd(Integer.valueOf( ( (BigDecimal)temp.get(i)[2]).intValue() ));
+			itens.add(tempi);
 		}
 		model.addAttribute("itens", itens);
 		model.addAttribute("n_urgentes", objects.size());
@@ -112,5 +103,4 @@ public class ItemController {
 		}
 
 	}
-	
 }

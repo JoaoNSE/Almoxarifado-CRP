@@ -10,7 +10,6 @@ public class EstoqueItem {
 	
 	public EstoqueItem () {
 		
-		
 	}
 	
 	public Produto getProduto() {

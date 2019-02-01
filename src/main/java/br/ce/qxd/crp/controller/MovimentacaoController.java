@@ -46,6 +46,10 @@ public class MovimentacaoController {
 	@Autowired
 	private ItemRepository itemRepo;
 	
+	/*
+	 * MÉTODOS DA MOVIMENTÇÃO DE TIPO ENTRADA
+	 */
+	
 	@GetMapping("/entradas")
 	public String listarEntradas(Model model) {
 		Iterable<Movimentacao> movs = movimentacaoRepo.findByTipo('E', new Sort(new Sort.Order(Sort.Direction.ASC, "id")));
@@ -72,8 +76,8 @@ public class MovimentacaoController {
 		if (mov.getId() == null) {
 			mov = movimentacaoRepo.save(mov);
 			
+			redirectAttributes.addFlashAttribute("msg", "Movimentação inserida, adicione produtos.");
 			return "redirect:/entradas/"+mov.getId()+"/update";
-//			redirectAttributes.addFlashAttribute("msg", "Movimentação inserida com sucesso.");
 		} else {
 			movimentacaoRepo.save(mov);
 			redirectAttributes.addFlashAttribute("msg", "Movimentação atualizada com sucesso.");
@@ -85,7 +89,6 @@ public class MovimentacaoController {
 	public String showEntradaDetalhes(Model model, @PathVariable Integer id) {
 		Movimentacao mov = movimentacaoRepo.findOne(id);
 		model.addAttribute("mov", mov);
-//		model.addAttribute("itens", mov.getItens());
 		
 		return folder + "display-entrada";
 	}
@@ -125,7 +128,6 @@ public class MovimentacaoController {
 	public String addItemInEntrada(@Valid Item item, BindingResult result, 
 			Model model, RedirectAttributes redirectAttributes, @PathVariable Integer id) {
 		if(result.hasErrors()) {
-			System.out.println("tem erro");
 			model.addAttribute("item", item);
 			model.addAttribute("acao", "/entradas/"+id+"/update");
 			if (item.getId() == null) {
@@ -137,12 +139,10 @@ public class MovimentacaoController {
 		
 		if (item.getId() == null) {
 			itemRepo.save(item);
-			
-			
-//			redirectAttributes.addFlashAttribute("msg", "Movimentação inserida com sucesso.");
+			redirectAttributes.addFlashAttribute("msg", "Item adicionado com sucesso.");
 		} else {
 			itemRepo.save(item);
-//			redirectAttributes.addFlashAttribute("msg", "Movimentação atualizada com sucesso.");
+			redirectAttributes.addFlashAttribute("msg", "Item alterado com sucesso.");
 		}
 		return "redirect:"+"/entradas/"+id+"/update";
 	}
@@ -176,16 +176,14 @@ public class MovimentacaoController {
 	public String deleteItemFromEntrada(Model model, @PathVariable Integer id, @PathVariable Integer itId, RedirectAttributes redirectAttributes) {
 		Item it = itemRepo.findOne(itId);
 		
-		
 		itemRepo.delete(it);
 		redirectAttributes.addFlashAttribute("msg", "Item removido com sucesso.");
 		return "redirect:/entradas/"+id+"/update";
 	}
 	
-	//SAíDAAAS =======================================================================================================
-	//================================================================================================================
-	//================================================================================================================
-	//================================================================================================================
+	/*
+	 * MÉTODOS DA MOVIMENTAÇÃO DE TIPO SAÍDA
+	 */
 	
 	
 	@GetMapping("/saidas")
@@ -218,8 +216,8 @@ public class MovimentacaoController {
 		if (mov.getId() == null) {
 			mov = movimentacaoRepo.save(mov);
 			
+			redirectAttributes.addFlashAttribute("msg", "Movimentação inserida, adicione produtos.");
 			return "redirect:/saidas/"+mov.getId()+"/update";
-//			redirectAttributes.addFlashAttribute("msg", "Movimentação inserida com sucesso.");
 		} else {
 			movimentacaoRepo.save(mov);
 			redirectAttributes.addFlashAttribute("msg", "Movimentação atualizada com sucesso.");
@@ -243,7 +241,6 @@ public class MovimentacaoController {
 			i.setQtd(i.getQtd()*-1);
 		}
 		model.addAttribute("mov", mov);
-//		model.addAttribute("itens", mov.getItens());
 		
 		return folder + "display-saida";
 	}
@@ -288,12 +285,10 @@ public class MovimentacaoController {
 		item.setQtd(item.getQtd()*-1);
 		if (item.getId() == null) {
 			itemRepo.save(item);
-			
-			
-//			redirectAttributes.addFlashAttribute("msg", "Movimentação inserida com sucesso.");
+			redirectAttributes.addFlashAttribute("msg", "Produto adicionado com sucesso.");
 		} else {
 			itemRepo.save(item);
-//			redirectAttributes.addFlashAttribute("msg", "Movimentação atualizada com sucesso.");
+			redirectAttributes.addFlashAttribute("msg", "Produto alterado com sucesso.");
 		}
 		return "redirect:"+"/saidas/"+id+"/update";
 	}
@@ -333,9 +328,5 @@ public class MovimentacaoController {
 		redirectAttributes.addFlashAttribute("msg", "Item removido com sucesso.");
 		return "redirect:/saidas/"+id+"/update";
 	}
-	
-	@RequestMapping("nullptr")
-	public String nullPtr() {
-		throw new NullPointerException();
-	}
+
 }

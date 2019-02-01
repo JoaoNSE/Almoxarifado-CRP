@@ -40,6 +40,9 @@ public class Movimentacao {
 	
 	public Movimentacao() {
 		itens = new ArrayList<Item>();
+		obs = "";
+		data = LocalDate.now();
+		tipo = 'c';
 	}
 
 	public Integer getId() {
@@ -78,7 +81,7 @@ public class Movimentacao {
 		return itens;
 	}
 
-	public void setItens(ArrayList<Item> itens) {
+	public void setItens(List<Item> itens) {
 		this.itens = itens;
 	}
 	

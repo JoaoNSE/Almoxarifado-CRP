@@ -11,17 +11,9 @@ import br.ce.qxd.crp.interceptor.LoginInterceptor;
 @Configuration
 public class AppConfig extends WebMvcConfigurerAdapter{
 	
-	
-	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginInterceptor());
-	}
-
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-//		registry.addViewController("/login").setViewName("login");
-		registry.addViewController("/404").setViewName("404");
 	}
 	
 }

@@ -10,23 +10,21 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		HttpSession s = ((HttpServletRequest)request).getSession(false);
-		String path = ((HttpServletRequest) request).getRequestURI();
+		HttpSession s = request.getSession(false);
+		String path =  request.getRequestURI();
 		
 		if(path.endsWith("login")) {
-//			chain.doFilter(request, response);
 			if(s != null && s.getAttribute("usuarioLogado") != null) {
-				((HttpServletResponse)response).sendRedirect("/produtos");
+				response.sendRedirect("/produtos");
 				return false;
 			}
 			return true;
 			
 		} else if(s != null && s.getAttribute("usuarioLogado") != null) {
-//			chain.doFilter(request, response);
 			return true;
 			
 		} else {
-			((HttpServletResponse)response).sendRedirect("/login");
+			response.sendRedirect("/login");
 			return false;
 		}
 		

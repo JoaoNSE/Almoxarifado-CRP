@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
-Built-By: joao
-Build-Jdk: 10.0.2
 Implementation-Title: EstoqueCRP
 Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: nobre
 Implementation-Vendor-Id: crp.qxd.br
-Implementation-Vendor: Pivotal Software, Inc.
+Build-Jdk: 1.8.0_201
 Implementation-URL: http://projects.spring.io/spring-boot/EstoqueCRP/
 Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
 

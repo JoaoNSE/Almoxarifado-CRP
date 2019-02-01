@@ -1,6 +1,5 @@
 package br.ce.qxd.crp.controller;
 
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -10,11 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ce.qxd.crp.model.Produto;
@@ -30,7 +27,7 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoRepository produtoRepo;
 	
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String index(Model model) {
 		
 		return "redirect:/produtos";
@@ -38,7 +35,6 @@ public class ProdutoController {
 	
 	@GetMapping("/produtos")
 	public String listarProdutos(Model model) {
-//		List<Produto> produtos = new ProdutoJdbcDao().getLista();
 		Iterable<Produto> produtos = produtoRepo.findAll(new Sort(new Sort.Order(Sort.Direction.ASC, "id")));
 		
 		model.addAttribute("produtos", produtos);
@@ -49,10 +45,6 @@ public class ProdutoController {
 	@PostMapping("/produtos")
 	public String addProduto(@Valid Produto produto, BindingResult result, 
 			Model model, RedirectAttributes redirectAttributes) {
-		
-//		req.setCharacterEncoding("UTF-8");
-		
-//		produto.setNome(req.getParameter("nome"));
 		
 		if(result.hasErrors()) {
 			model.addAttribute("produto", produto);
@@ -74,7 +66,7 @@ public class ProdutoController {
 		return "redirect:/produtos";
 	}
 	
-	@RequestMapping("/produtos/{id}/delete")
+	@GetMapping("/produtos/{id}/delete")
 	public String deletarProduto(Model model, @PathVariable Integer id,  RedirectAttributes redirectAttributes) {
 		
 		Produto produto = new Produto();
@@ -95,7 +87,7 @@ public class ProdutoController {
 	}
 	
 	
-	@RequestMapping("/produtos/{id}/update")
+	@GetMapping("/produtos/{id}/update")
 	public String showUpdateProdutoForm(Model model, @PathVariable Integer id) {
 		Produto p = produtoRepo.findOne(id);
 		
@@ -103,9 +95,4 @@ public class ProdutoController {
 		model.addAttribute("acao", "/produtos");
 		return folder + "editar-produto";
 	}
-	
-	
-
-	
-	
 }

@@ -53,16 +53,14 @@ public class LoginController {
 			algorithm = MessageDigest.getInstance("MD5");
 			messageDigest = algorithm.digest(usuario.getSenha().getBytes("UTF-8"));
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		StringBuilder hexString = new StringBuilder();
 		for (byte b : messageDigest) {
-		  hexString.append(String.format("%02X", 0xFF & b));
+			hexString.append(String.format("%02X", 0xFF & b));
 		}
 		String senha = hexString.toString();
 		
@@ -74,7 +72,6 @@ public class LoginController {
 		    return "redirect:/";
 			
 		}
-//			produtoRepo.save(produto);
 		redirectAttributes.addFlashAttribute("msg", "Autenticação Falhou: dados incorretos.");
 		
 		return "redirect:/login";
@@ -118,11 +115,11 @@ public class LoginController {
 			if (usuario.getId() == null) {
 				
 				model.addAttribute("msg", "Cadastro falhou: Usuário já existe");
-//				return "redirect:/usuarios/add";
+
 				return folder + "/cadastrar-usuario";
 			} else if (usuario.getId() != usarios.get(0).getId()){
 				model.addAttribute("msg", "Edição falhou: Usuário já existe");
-//				return "redirect:/usuarios/" + usuario.getId() + "/update";
+
 				return folder + "/editar-usuario";
 			}
 		}
