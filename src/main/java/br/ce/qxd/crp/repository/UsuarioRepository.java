@@ -8,7 +8,7 @@ import br.ce.qxd.crp.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-	public List<Usuario> findByNome(String nome);
+	public Usuario findByNome(String nome);
 	
 	public List<Usuario> findByNomeAndSenha(String nome, String senha);
 	
