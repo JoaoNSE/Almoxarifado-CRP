@@ -1,20 +1,11 @@
 package br.ce.qxd.crp.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -43,44 +34,6 @@ public class LoginController {
 		return folder + "login";
 	}
 	
-	@PostMapping("login")
-	public String efetuaLogin(@Valid Usuario usuario, BindingResult result, 
-			Model model, RedirectAttributes redirectAttributes, HttpSession session) {
-		if(result.hasErrors()) {
-			model.addAttribute("acao", "/login");
-			return folder + "login";
-		}
-		
-		MessageDigest algorithm;
-		byte messageDigest[] = null;
-		try {
-			algorithm = MessageDigest.getInstance("MD5");
-			messageDigest = algorithm.digest(usuario.getSenha().getBytes("UTF-8"));
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		
-		StringBuilder hexString = new StringBuilder();
-		for (byte b : messageDigest) {
-			hexString.append(String.format("%02X", 0xFF & b));
-		}
-		String senha = hexString.toString();
-		
-		usuario.setSenha(senha);
-		
-		List<Usuario> usarios = usuarioRepo.findByNomeAndSenha(usuario.getNome(), usuario.getSenha());
-		if (usarios.size() == 1 ) {
-			session.setAttribute("usuarioLogado", usuario);
-		    return "redirect:/";
-			
-		}
-		redirectAttributes.addFlashAttribute("msg", "Autenticação Falhou: dados incorretos.");
-		
-		return "redirect:/login";
-	}
-	
 	@GetMapping("usuarios")
 	public String listaUsuarios(Model model) {
 		
@@ -90,7 +43,7 @@ public class LoginController {
 		return folder + "lista-usuarios";
 	}
 	
-	@PostMapping("usuarios")
+	/*@PostMapping("usuarios")
 	public String cadastrarUsuario(@Valid Usuario usuario, BindingResult result, 
 			Model model, RedirectAttributes redirectAttributes) {
 		
@@ -151,7 +104,7 @@ public class LoginController {
 		}
 		
 		return "redirect:/usuarios";
-	}
+	}*/
 	
 	@GetMapping("usuarios/add")
 	public String showUsuarioForm(Model model) {
