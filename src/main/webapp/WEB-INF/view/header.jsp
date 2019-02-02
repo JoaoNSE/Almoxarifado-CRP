@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/header.css">
 <div>
 	<nav class="navbar navbar-static-top navbar-custom">
@@ -10,8 +11,8 @@
                 	</div>
             	</div>
 	        </div>
-	        
-	        <c:if test="${usuarioLogado != null}">
+			
+	        <sec:authorize access="isAuthenticated()">
 	        <ul class="nav navbar-nav">
 	            <li><a href="/">Home</a></li>
 				<li><a href="/produtos">Produtos</a></li>
@@ -32,18 +33,18 @@
 			
 			
 			<div class="navbar-right navbar-text" style= "margin-right: 10px;">
-				Olá, ${usuarioLogado.nome}.
+				Olá, <sec:authentication property="principal.username" />.
 				<a class="btn btn-danger btn-sm" href="/logout" role="button">Logout</a>
 			</div>
-			</c:if>
+			</sec:authorize>
 			
-			<c:if test="${usuarioLogado == null}">
+			<sec:authorize access="isAnonymous()">
 			<div class="navbar-right navbar-text" style= "margin-right: 10px;">
 				<a class="btn btn-default " href="#" role="button" data-toggle="modal" data-target="#cadastro">Cadastrar-se</a>
 			</div>
 			
 			
-		   </c:if>
+		   </sec:authorize>
 			
 	        
 	    </div>

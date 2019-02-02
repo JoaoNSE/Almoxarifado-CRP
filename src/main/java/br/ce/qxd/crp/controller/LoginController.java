@@ -3,7 +3,6 @@ package br.ce.qxd.crp.controller;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,9 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ce.qxd.crp.model.Produto;
 import br.ce.qxd.crp.model.Usuario;
 
 import br.ce.qxd.crp.repository.UsuarioRepository;
@@ -33,9 +32,14 @@ public class LoginController {
 	private UsuarioRepository usuarioRepo;
 
 	@GetMapping("login")
-	public String mostraFormLogin(Model model) {
-		model.addAttribute("usuario", new Usuario());
-		model.addAttribute("acao", "/login");
+	public String mostraFormLogin(Model model, @RequestParam(required = false) String error, @RequestParam(required = false) String logout) {
+		if (error != null) {
+			model.addAttribute("msg", "Usuário ou senha inválidos!");
+		}
+		if (logout != null) {
+			model.addAttribute("logoutMsg", "Logout efetuado com sucesso!");
+		}
+		model.addAttribute("acao", "/signin");
 		return folder + "login";
 	}
 	
@@ -75,15 +79,6 @@ public class LoginController {
 		redirectAttributes.addFlashAttribute("msg", "Autenticação Falhou: dados incorretos.");
 		
 		return "redirect:/login";
-	}
-	
-	@RequestMapping("logout")
-	public String efetuaLogout(HttpSession session) {
-		if (session.getAttribute("usuarioLogado") != null) {
-			session.removeAttribute("usuarioLogado");
-			return "redirect:/login";
-		}
-		return "redirect:/";
 	}
 	
 	@GetMapping("usuarios")
