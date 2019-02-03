@@ -50,7 +50,7 @@ public class UsuarioService {
 		if (tempUsuario != null) {
 			if (usuario.getId() == null) {
 				throw new UserAlreadyExistsException();
-			} else if (usuario.getId().equals(tempUsuario.getId())) {
+			} else if (!usuario.getId().equals(tempUsuario.getId())) {
 				throw new BadCredentialsException("Usuário que se deseja alterar não existe.");
 			}
 		}

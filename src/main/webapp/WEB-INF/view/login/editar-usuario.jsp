@@ -25,7 +25,7 @@
 				</div>
 			</c:if>
 			
-			<jsp:include page="form_login.jsp" />
+			<jsp:include page="form_usuario.jsp" />
 		</div>
 	</div>
 	</div>
