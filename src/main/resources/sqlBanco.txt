@@ -51,7 +51,7 @@ WITH (
 ALTER TABLE usuario
   OWNER TO postgres;
 
-INSERT INTO usuario(nome, senha) VALUES ('admin', '21232F297A57A5A743894A0E4A801FC3');
+INSERT INTO usuario(nome, senha) VALUES ('admin', '$2a$10$X57bj/M9FqeAnPVetpN3eeYMY0/wLYrap4nc7kPZyNBO1YFQ38s3C');
 
 -- Table: movimentacao
 
