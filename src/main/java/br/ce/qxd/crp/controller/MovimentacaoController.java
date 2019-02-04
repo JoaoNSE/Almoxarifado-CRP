@@ -1,17 +1,8 @@
 package br.ce.qxd.crp.controller;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.format.datetime.joda.LocalDateParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -20,13 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import br.ce.qxd.crp.model.Item;
 import br.ce.qxd.crp.model.Movimentacao;
 import br.ce.qxd.crp.model.Produto;
-import br.ce.qxd.crp.model.Usuario;
 import br.ce.qxd.crp.repository.ItemRepository;
 import br.ce.qxd.crp.repository.MovimentacaoRepository;
 import br.ce.qxd.crp.repository.ProdutoRepository;

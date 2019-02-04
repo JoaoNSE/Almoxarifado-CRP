@@ -2,11 +2,8 @@ package br.ce.qxd.crp.repository;
 
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import br.ce.qxd.crp.model.EstoqueItem;
 import br.ce.qxd.crp.model.Item;
 
 
